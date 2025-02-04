@@ -24,9 +24,13 @@ img{
     background-color:blue;
     opacity: 0.7;
     display: flex;
+    flex-direction:row;
     justify-content:space-between;
     align-items: center;
-   
+  
+}
+
+
 
 .logo{
     
@@ -35,119 +39,77 @@ img{
     display: flex;
     align-items: center;
     opacity:1;
+}
 
-    img{
-        height:100%;
-        width:100%;
-        padding-right: 20px;
-       
-    }
-
-    h3{
-        color:white;
-    }
-    
-    
+img{
+    height:100%;
+    width:100%;
+    padding-right: 20px;
+   
 }
 
 
-
-
+h3{
+    color:white;
+}
 
 .right{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width:200px;
-  
+       
+   
 }
 .left{
     display: flex;
     align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-    width:1000px;
     
 }
-
-
-
-
-
-.search{
-    width:500px;
-    height:100%;
-    display: flex;
-    flex-direction: row;
-    margin-right:50px;
-    align-items: center;
-    margin-top: 20px;
-
-    input{
-        width:300px;
-        height: 35px;
-        margin-bottom: 20px;
-    }
-
-    img{
-        height: 35px;
-        width:60px;
-        margin-bottom: 10px;
-        margin-left:20px;
-        margin-bottom:20px;
-       
-        
-    }
-
+.home{
+    margin-left: 200px;
+    color:white;
+    font-weight: bolder;
 }
 
 .btn{
     width: 100px;
-    
-
      margin-right:50px;
-
-     i{
-        display: flex;
-        justify-content: start;
-        align-items: center;
-     }
-   
-
-        
-    
 }
 
-
-}
+i{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+ }
 
 .cart{
        margin-top:10px;
-        img{
-            height: 70px;
-            width: 100px;
-        }
+}
 
-        .button{
-            position:relative;
-            left:40px;
-            bottom:30px;
-           
-            .btn{
-                width:30px;
-                background-color:blue;
-                border: 0;
-                outline: 0;
-                color:rgb(239, 237, 237);
-                font-weight: bolder;
-            }
-        }
-  
+.button{
+    position:relative;
+    left:40px;
+    bottom:30px;
+   
 }
 
 
+img{
+    height: 70px;
+    width: 100px;
+}
 
 
-
+.btn{
+    width:30px;
+    background-color:blue;
+    border: 0;
+    outline: 0;
+    color:rgb(239, 237, 237);
+    font-weight: bolder;
+}
 
 .usericon {
     display: flex; 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
-import { environment } from '../../environment/environment.prod';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -19,8 +19,10 @@ export class CartService {
 
     addtocart(item:Product){
       
-        this.http.post(`${this.apiurl}/add_to_cart`,item,{ withCredentials: true }).subscribe((res)=>{
-          console.log(res);
+        this.http.post(`${this.apiurl}/add_to_cart`,item,{ withCredentials: true }).subscribe((cartData)=>{
+          const cartArray = Object.values(cartData); // Convert to array
+          console.log("Converted Array:", cartArray);
+          this.noof_items = cartArray.length;
         },(error)=>{
           console.log(error);
         });

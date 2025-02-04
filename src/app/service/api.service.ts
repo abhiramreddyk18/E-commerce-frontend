@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { User } from '../models/user';
-import { environment } from '../../environment/environment.prod';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,8 @@ import { environment } from '../../environment/environment.prod';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  isloggedIn$ = this.loggedIn.asObservable();
   apiurl=environment.apiUrl;
   getproduct() {
     return this.http.get<any>("https://fakestoreapi.com/products")
@@ -27,17 +28,28 @@ export class ApiService {
 
 
   login(user: any) {
-
+    this.verifylogin()
     return this.http.post(`${this.apiurl}/user_login`, user, { withCredentials: true });
+
+   ;
 
   }
 
 
   logout() {
+    this.verifylogout();
     return this.http.get(`${this.apiurl}/logout`);
   }
 
 
+  verifylogin(){
+    this.loggedIn.next(true);
+  }
+
+
+  verifylogout(){
+    this.loggedIn.next(false);
+  }
 
 
 

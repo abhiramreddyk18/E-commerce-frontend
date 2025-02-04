@@ -10,13 +10,14 @@ import { ApiService } from '../service/api.service';
 export class HeaderComponent implements OnInit {
 
 len:number=0;
-
+loggedin=false;
 constructor(private cartservice:CartService,private apiservice:ApiService){}
 
 ngOnInit(): void {
-
   
-
+  this.apiservice.isloggedIn$.subscribe(status=>{
+    this.loggedin=status;
+  })
 }
 
 
@@ -25,6 +26,8 @@ logout(){
     console.log(res);
   });
 }
+
+
 
  
 }
