@@ -1,0 +1,39 @@
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    
+}
+
+.form {
+    width: 450px; 
+    box-shadow: 0px 40px 10px rgba(14, 11, 11, 0.2), 0px -40px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+
+}
+.form-control{
+    width: 300px;
+    margin:0 5px  5px 5px;
+}
+.error{
+    color:red;
+}
+
+div{
+    margin:15px;
+}
+
+.btn{
+    margin-left: 120px;
+}
+

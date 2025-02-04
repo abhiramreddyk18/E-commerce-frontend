@@ -33,10 +33,10 @@
                   <i class="fas fa-user fa-2x"></i><span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a routerLink="/login" style="cursor: pointer;">Login</a></li>
-                  <li><a routerLink="/register" style="cursor: pointer;" >Register</a></li>
-                  <li><a routerLink="/login" style="cursor: pointer;" (click)="logout()">logout</a></li>
-                  
+                    <li><a routerLink="/login" style="cursor: pointer;" *ngIf="!loggedin">Login</a></li>
+                    <li><a routerLink="/register" style="cursor: pointer;" *ngIf="!loggedin">Register</a></li>
+                    <li><a routerLink="/login" style="cursor: pointer;" (click)="logout()">Logout</a></li>
+                    
                 </ul>
               </div>
             </div>

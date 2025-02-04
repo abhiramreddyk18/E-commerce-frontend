@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
-import { Subject } from 'rxjs';
-import { CartComponent } from '../cart/cart.component';
+
 import { CartService } from '../service/cart.service';
 import { Product } from '../models/product';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit {
   product:Product=new Product('','','','',0,0,0);
   
 
-  constructor(private apiservice:ApiService,private cartservice:CartService){}
+  constructor(private apiservice:ApiService,private cartservice:CartService,private router:Router){}
 
   ngOnInit(): void {
       this.apiservice.getproduct().subscribe(res=>{
@@ -39,7 +39,12 @@ export class ProductComponent implements OnInit {
 
   addToCart(item:any){
 
-    // this.cartservice.sendingproduct(item);
+    this.apiservice.isloggedIn$.subscribe(status=>{
+      
+      if(!status){
+        this.router.navigate(['/login']);
+      }
+    })
 
     this.product=new Product (item.id,item.title,item.image,item.description,1,item.price,item.price);
      

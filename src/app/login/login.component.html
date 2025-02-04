@@ -1,6 +1,6 @@
 <div class="container">
     <div class="form">
-
+            
         <form [formGroup]="loginform" (ngSubmit)="onsubmit()">
 
             <h3 style="text-align:center;">Login</h3>
@@ -13,8 +13,8 @@
 
             <div *ngIf="submitted && f.email.errors" class="invalid">
 
-                <div *ngIf="f.email.errors['required']">Email is required</div>
-                <div *ngIf="f.email.errors['email']">Enter a valid email</div>
+                <div *ngIf="f.email.errors['required']" class="error">Email is required</div>
+                <div *ngIf="f.email.errors['email']" class="error">Enter a valid email</div>
 
             </div>
 
@@ -25,11 +25,15 @@
             </div>
 
             <div *ngIf="submitted && f.password.errors" class="invalid">
-                <div *ngIf="f.password.errors['required']">password is required</div>
-                <div *ngIf="f.password.errors['minlength']">password must be atleast 6 characters</div>
+                <div *ngIf="f.password.errors['required']" class="error">password is required</div>
+                <div *ngIf="f.password.errors['minlength']" class="error">password must be atleast 6 characters</div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <u><a routerLink="/register">register</a></u>
+            </div>
+            
         </form>
     </div>
 </div>
