@@ -14,12 +14,16 @@ loggedin=false;
 constructor(private cartservice:CartService,private apiservice:ApiService){}
 
 ngOnInit(): void {
-  
+
   this.apiservice.isloggedIn$.subscribe(status=>{
     this.loggedin=status;
+  });
+
+
+  this.cartservice.Totalitems$.subscribe(noof_items=>{
+    this.len=noof_items;
   })
 }
-
 
 logout(){
   this.apiservice.logout().subscribe(res=>{
