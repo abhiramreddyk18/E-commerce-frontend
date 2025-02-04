@@ -33,6 +33,7 @@ DecreaseItem(index:number){
   }
 
   this.calculateTotalPrice();
+  this.updateAllProducts();
 
  
 }
@@ -47,6 +48,7 @@ IncreaseItem(index:number){
   this.calculateTotalPrice();
     
   this.cartservice.addtocart(this.products[index]);
+  this.updateAllProducts();
 }
 
 
