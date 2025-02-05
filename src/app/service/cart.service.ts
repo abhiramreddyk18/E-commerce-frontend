@@ -13,14 +13,14 @@ export class CartService {
   constructor(private http:HttpClient) { }
 
   private  totalItems= new BehaviorSubject<number>(null);
-    Totalitems$ = this.totalItems.asObservable();
+  Totalitems$ = this.totalItems.asObservable();
   
   noof_items:number=0;
   apiurl=environment.apiUrl;
 
     addtocart(item:Product){
       
-        this.http.post(`${this.apiurl}/add_to_cart`,item,{ withCredentials: true }).subscribe((cartData)=>{
+        this.http.post(`${this.apiurl}/cart/add`,item,{ withCredentials: true }).subscribe((cartData)=>{
           const cartArray = Object.values(cartData); 
           console.log("Converted Array:", cartArray);
           this.noof_items = cartArray.length;
@@ -32,12 +32,12 @@ export class CartService {
 
 
       getproducts(){
-        return this.http.get(`${this.apiurl}/get_products`,{withCredentials:true});
+        return this.http.get(`${this.apiurl}/cart/products`,{withCredentials:true});
       }
       
       
       removeFromCart(item:Product){
-        return this.http.post(`${this.apiurl}/remove_from_cart`,item,{withCredentials:true}).subscribe(res=>{
+        return this.http.post(`${this.apiurl}/cart/remove`,item,{withCredentials:true}).subscribe(res=>{
           console.log(res);
         })
     }

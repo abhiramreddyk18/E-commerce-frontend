@@ -1,82 +1,83 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
-
 import { CartService } from '../service/cart.service';
 import { Product } from '../models/product';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../service/localstorage.service';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  public productList:any;
-  public Allproducts:any;
+  public productList: any = [];
+  public Allproducts: any = [];
+  loggedIn: boolean = false; // To track login status
 
-  product:Product=new Product('','','','',0,0,0);
-  
-
-  constructor(private apiservice:ApiService,private cartservice:CartService,private router:Router){}
+  constructor(
+    private apiservice: ApiService,
+    private cartservice: CartService,
+    private router: Router,
+    private localstorageservice:LocalStorageService
+  ) {}
 
   ngOnInit(): void {
-      this.apiservice.getproduct().subscribe(res=>{
-        this.Allproducts=res;
-        
-        this.Allproducts.forEach(element => {
-          Object.assign(element,{quantity:1,total:element.price});
-          
-        });
-
-        this.productList=this.Allproducts;
-
-        console.log(this.Allproducts);
-      });
-
-      
-  }
-
-
-  addToCart(item:any){
-
-    this.apiservice.isloggedIn$.subscribe(status=>{
-      
-      if(!status){
-        this.router.navigate(['/login']);
-      }
-    })
-
-    this.product=new Product (item.id,item.title,item.image,item.description,1,item.price,item.price);
-     
-    this.cartservice.addtocart(this.product);
-
-
-
-
-      
-    }
+   
+    this.localstorageservice.isLoggedIn$.subscribe((status) => {
+      this.loggedIn = status;
+    });
 
   
+    this.apiservice.getproduct().subscribe((res) => {
+      this.Allproducts = res;
+
+     
+      this.Allproducts.forEach((element) => {
+        Object.assign(element, { quantity: 1, total: element.price });
+      });
+
+      this.productList = this.Allproducts;
+    });
+  }
+
+  addToCart(item: any): void {
+    if (!this.loggedIn) {
+      this.router.navigate(['/login']);
+      return; 
+    }
+
+    
+    const product = new Product(item.id, item.title, item.image, item.description, 1, item.price, item.price);
+    this.cartservice.addtocart(product); 
+  
+}
 
 category(category:string){
 
-    this.productList=[];
-    if(category=="All") this.productList=this.Allproducts;
-    else{
-      this.Allproducts.forEach(element=>{
+  this.productList=[];
+  if(category=="All") this.productList=this.Allproducts;
+  else{
+    this.Allproducts.forEach(element=>{
 
-        if(element.category[0]==category[0]){
-          this.productList.push(element);
-        }
-      });
+      if(element.category[0]==category[0]){
+        this.productList.push(element);
+      }
+    });
+
+    console.log(this.productList);
+  }
   
-      console.log(this.productList);
-    }
-    
 }
 
 }
 
-  
+
+
+
+
+
+
+
 
 
