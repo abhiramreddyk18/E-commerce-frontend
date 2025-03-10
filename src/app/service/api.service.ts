@@ -3,17 +3,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from '../../environments/environment';
-import { LocalStorageService } from './localstorage.service';
+// import { LocalStorageService } from './localstorage.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient,private localStorageService:LocalStorageService) { 
+  constructor(private http: HttpClient,private router:Router) { 
    
   }
-
+  // private localStorageService:LocalStorageService,
   
   apiurl = environment.apiUrl;
 
@@ -31,9 +32,9 @@ export class ApiService {
   login(user: { email: string, password: string }) {
     return this.http.post(`${this.apiurl}/user/login`, user).pipe(
       map((res: any) => {
-      
+        console.log('after login: ',res);
         if (res.success) {
-          this.localStorageService.setLoginStatus(true);
+          // this.localStorageService.setLoginStatus(true);
           return res;
         }
       })
@@ -42,12 +43,32 @@ export class ApiService {
   
 
   logout() {
-    this.localStorageService.setLoginStatus(false);
+    // this.localStorageService.setLoginStatus(false);
     return this.http.get(`${this.apiurl}/user/logout`);
   }
 
+
+
+  checksession(){
+    console.log("checking session");
+    this.http.get(`${this.apiurl}/auth/session`, { withCredentials: true })
+    .subscribe((response: any) => {
+      if (response.loggedIn) {
+        console.log('User is already logged in');
+        this.router.navigate(['/home']);  // Redirect to home
+      } else {
+        console.log('Session expired, redirecting to login');
+        this.router.navigate(['/login']); // Redirect to login
+      }
+    }, error => {
+      console.log('Session check failed', error);
+      this.router.navigate(['/login']); // Redirect to login on error
+    });
+  }
+  }
+
  
-}
+
 
 
 

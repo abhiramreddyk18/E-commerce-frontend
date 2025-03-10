@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../service/cart.service';
 import { ApiService } from '../service/api.service';
-import { LocalStorageService } from '../service/localstorage.service';
+// import { LocalStorageService } from '../service/localstorage.service';
 
 @Component({
   selector: 'app-header',
@@ -12,14 +12,10 @@ export class HeaderComponent implements OnInit {
 
 len:number=0;
 loggedin=false;
-constructor(private cartservice:CartService,private apiservice:ApiService,private localStorageService:LocalStorageService){}
+constructor(private cartservice:CartService,private apiservice:ApiService){} //private localStorageService:LocalStorageService
 
 ngOnInit(): void {
 
-  this.localStorageService.isLoggedIn$.subscribe(status => {
-    console.log("the local data is taken in herader");
-    this.loggedin = status; 
-  });
 
  
 
@@ -30,7 +26,7 @@ ngOnInit(): void {
 }
 
 logout(){
-  this.localStorageService.setLoginStatus(false);
+  
   this.apiservice.logout().subscribe(res=>{
     console.log(res);
   });

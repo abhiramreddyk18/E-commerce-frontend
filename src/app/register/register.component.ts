@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/user';
 import { ApiService } from '../service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent {
   users:User[]=[];
   response:any;
 
-  constructor(private formbulider:FormBuilder,private apiservice:ApiService){
+  constructor(private formbulider:FormBuilder,private apiservice:ApiService,private router:Router){
 
     this.registerform=this.formbulider.group({
       username:['',Validators.required],
@@ -48,6 +49,9 @@ export class RegisterComponent {
       }
     );
     console.log("Register Successfully",this.registerform.value);
+
+      this.router.navigate(['login']);
+
     this.registerform.reset();
     this.submitted=false;
    
