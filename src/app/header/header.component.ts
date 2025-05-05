@@ -12,17 +12,18 @@ export class HeaderComponent implements OnInit {
 
 len:number=0;
 loggedin=false;
-constructor(private cartservice:CartService,private apiservice:ApiService){} //private localStorageService:LocalStorageService
+constructor(private cartservice:CartService,private apiservice:ApiService){}
 
 ngOnInit(): void {
-
-
- 
-
-
+  
   this.cartservice.Totalitems$.subscribe(noof_items=>{
     this.len=noof_items;
-  })
+  });
+
+  this.apiservice.isLoggedIn$.subscribe(status => {
+    this.loggedin = status;
+  });
+
 }
 
 logout(){
